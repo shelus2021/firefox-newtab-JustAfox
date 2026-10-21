@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>新标签页</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/firefox-newtab.png">
+  <link rel="stylesheet" href="newtab.css">
+</head>
+<body>
+  <main id="playground" aria-label="小狐狸游乐场">
+    <div id="fox" class="fox" role="button" tabindex="0" aria-label="小狐狸，点击和它互动" data-facing="right">
+      <div class="fox-motion">
+        <div class="fox-turn">
+          <svg class="fox-art" viewBox="0 0 320 205" aria-hidden="true">
+            <defs>
+              <linearGradient id="fireFur" x1=".08" y1=".12" x2=".94" y2=".82">
+                <stop offset="0" stop-color="#ffb51d"/>
+                <stop offset=".35" stop-color="#ff7338"/>
+                <stop offset=".68" stop-color="#e63b57"/>
+                <stop offset="1" stop-color="#8a2cbd"/>
+              </linearGradient>
+              <linearGradient id="deepFur" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#ba3277"/>
+                <stop offset="1" stop-color="#64249e"/>
+              </linearGradient>
+              <linearGradient id="cream" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#fff9eb"/>
+                <stop offset="1" stop-color="#ffd39d"/>
+              </linearGradient>
+              <filter id="softShadow" x="-25%" y="-30%" width="150%" height="180%">
+                <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#351846" flood-opacity=".22"/>
+              </filter>
+            </defs>
+
+            <ellipse class="fox-shadow" cx="163" cy="184" rx="104" ry="10" fill="#40204f" opacity=".17"/>
+
+            <g class="far-legs">
+              <path class="far-hind-leg" d="M137 137c-5 15-7 29-3 43 3 8 22 8 27 0l-1-39Z" fill="url(#deepFur)"/>
+              <path class="far-front-leg" d="M218 137c2 16 1 31-3 43-2 8 19 9 26 1l3-42Z" fill="url(#deepFur)"/>
+            </g>
+
+            <g class="fox-figure" filter="url(#softShadow)">
+              <g class="fox-body">
+                <path class="fox-silhouette" d="M117 108c22-25 57-34 91-24 20 3 36 15 44 31 6 14 0 30-18 40-35 16-79 8-110-13-4-3-6-5-7-8C111 129 111 114 117 108Z" fill="url(#fireFur)"/>
+                <path class="body-outline" d="M117 108c22-25 57-34 91-24 20 3 36 15 44 31 6 14 0 30-18 40-35 16-79 8-110-13-4-3-6-5-7-8C111 129 111 114 117 108Z" fill="none" stroke="#64284f" stroke-width="4.5" stroke-linejoin="round"/>
+                <path class="belly" d="M121 109c22-18 54-22 81-14-18 11-25 28-20 52-25 1-47-3-60-10-8-4-14-5-21-2 9-7 13-15 20-26Z" fill="url(#cream)" opacity=".96"/>
+                <path class="chest" d="M226 91c12 7 21 17 25 30-5 14-13 23-24 28-13-7-23-17-29-30 12-5 21-15 28-28Z" fill="url(#cream)"/>
+              </g>
+            </g>
+
+            <g class="near-legs">
+              <path class="hind-leg" d="M119 139c-7 15-9 30-6 43 2 9 23 9 29 0l2-40Z" fill="url(#fireFur)"/>
+              <path class="hind-paw" d="M112 176c9 5 22 5 30 0l2 10h-33Z" fill="#512042"/>
+              <path class="front-leg" d="M224 138c5 16 5 31 1 44-2 8 21 9 28 0l-1-42Z" fill="#df3b5e"/>
+              <path class="front-paw" d="M224 176c9 5 21 5 29 0l1 10h-32Z" fill="#512042"/>
+            </g>
+
+            <g class="scratch-leg">
+              <path d="M130 146c-14-4-25 8-19 20 5 11 21 6 27-6" fill="#c43571" stroke="#64284f" stroke-width="4" stroke-linecap="round"/>
+            </g>
+
+            <g class="fox-tail-motion">
+              <g class="fox-tail" filter="url(#softShadow)">
+                <path class="tail-fur" d="M101 140C78 163 38 166 19 149 2 133 14 108 41 103c22-4 39 8 54 13 8 6 11 15 6 24Z" fill="url(#fireFur)" stroke="#64284f" stroke-width="4.5" stroke-linejoin="round"/>
+                <path class="tail-tip" d="M19 149c-12-11-10-27 0-36 8-7 18-10 29-9-11 12-10 31 5 47-14 5-26 3-34-2Z" fill="url(#cream)"/>
+              </g>
+            </g>
+
+            <g class="fox-head-motion" filter="url(#softShadow)">
+              <g class="fox-head">
+                <path class="fox-head-fur" d="M208 84c9-7 16-15 22-24l6-34 23 28 24-30 4 43c17 11 27 29 23 46-4 18-19 31-42 31-13 0-23-4-31-10-5-18-15-36-29-50Z" fill="url(#fireFur)" stroke="#64284f" stroke-width="4.5" stroke-linejoin="round"/>
+                <path class="muzzle" d="M258 93c19 0 35 8 45 20-3 13-15 25-31 29-13-5-22-14-27-26 7-4 11-12 13-23Z" fill="url(#cream)"/>
+                <path class="inner-ear far-ear" d="m239 54 1-18 13 17Z" fill="#5b234b"/>
+                <path class="inner-ear near-ear" d="m267 57 13-21 2 27Z" fill="#5b234b"/>
+                <g class="face">
+                  <path class="eye" d="M255 91c7-6 15-5 20 1-6 7-15 7-20-1Z" fill="#321833"/>
+                  <circle class="eye-glint" cx="268" cy="89" r="2.2" fill="#fff"/>
+                  <path class="smile" d="M275 124c6 5 13 5 19-1" fill="none" stroke="#51213e" stroke-width="3.2" stroke-linecap="round"/>
+                  <path class="nose" d="m299 111 9 5-8 7-7-5Z" fill="#321833"/>
+                </g>
+              </g>
+            </g>
+          </svg>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="newtab.js"></script>
+</body>
+</html>

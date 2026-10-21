@@ -1,0 +1,167 @@
+:root {
+  color-scheme: light dark;
+  --run-cycle: 360ms;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body,
+#playground {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body,
+#playground { background: transparent; }
+#playground { position: relative; }
+
+.fox {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(175px, 19vw, 255px);
+  aspect-ratio: 320 / 205;
+  transform: translate(-50%, -50%);
+  outline: none;
+  cursor: pointer;
+  will-change: left, top;
+}
+
+.fox-motion,
+.fox-turn,
+.fox-art {
+  width: 100%;
+  height: 100%;
+  transform-origin: center 76%;
+}
+
+.fox-motion { perspective: 700px; }
+.fox-turn {
+  transform-style: preserve-3d;
+  transition: transform 520ms cubic-bezier(.34, .03, .18, 1);
+  will-change: transform;
+}
+.fox[data-facing="right"] .fox-turn { transform: rotateY(0deg); }
+.fox[data-facing="left"] .fox-turn { transform: rotateY(180deg); }
+.fox-art { overflow: visible; }
+
+.fox-figure,
+.fox-tail-motion,
+.fox-head-motion,
+.fox-shadow,
+.front-leg,
+.hind-leg,
+.far-front-leg,
+.far-hind-leg,
+.scratch-leg,
+.near-ear,
+.far-ear,
+.eye { transform-box: fill-box; }
+
+.fox-figure,
+.fox-tail-motion,
+.fox-head-motion { transform-origin: center 76%; animation: breathe 2.8s ease-in-out infinite; }
+.fox-tail {
+  transform-box: view-box;
+  transform-origin: 100px 124px;
+  transform: translateX(8px);
+  transition: transform 720ms cubic-bezier(.22,.75,.24,1);
+}
+.fox-head {
+  transform-box: view-box;
+  transform-origin: 220px 105px;
+  transition: transform 720ms cubic-bezier(.22,.75,.24,1);
+}
+.front-leg, .hind-leg, .far-front-leg, .far-hind-leg { transform-origin: 50% 12%; }
+.scratch-leg { opacity: 0; transform-origin: 80% 18%; }
+.near-ear, .far-ear { transform-origin: 50% 100%; }
+.eye { transform-origin: center; animation: blink 5.2s ease-in-out infinite; }
+
+.fox.is-running .fox-figure,
+.fox.is-running .fox-tail-motion,
+.fox.is-running .fox-head-motion { animation: run-body var(--run-cycle) ease-in-out infinite alternate; }
+.fox.is-running .front-leg { animation: front-stride var(--run-cycle) ease-in-out infinite; }
+.fox.is-running .hind-leg { animation: hind-stride var(--run-cycle) ease-in-out infinite; }
+.fox.is-running .far-front-leg { animation: front-stride var(--run-cycle) ease-in-out infinite reverse; }
+.fox.is-running .far-hind-leg { animation: hind-stride var(--run-cycle) ease-in-out infinite reverse; }
+.fox.is-running .fox-shadow { animation: run-shadow var(--run-cycle) ease-in-out infinite alternate; }
+.fox.is-running .near-ear { animation: ear-run var(--run-cycle) ease-in-out infinite alternate; }
+.fox.is-running .far-ear { animation: ear-run var(--run-cycle) ease-in-out infinite alternate-reverse; }
+.fox.is-turning .fox-motion { animation: turn-step 520ms cubic-bezier(.3,.02,.2,1); }
+.fox.is-turning .fox-shadow { animation: turn-shadow 520ms ease-in-out; }
+
+.fox.interact-curious .fox-motion { animation: curious-tilt 1.2s ease-in-out; }
+.fox.interact-scratch .scratch-leg { opacity: 1; animation: paw-scratch 145ms ease-in-out 8 alternate; }
+.fox.interact-scratch .fox-figure,
+.fox.interact-scratch .fox-tail-motion,
+.fox.interact-scratch .fox-head-motion { animation: scratch-react 1.25s ease-in-out; }
+.fox.interact-pounce .fox-motion { animation: pounce 1.05s cubic-bezier(.2,.72,.25,1); }
+.fox.interact-happy .fox-motion { animation: happy-bow 1.15s ease-in-out; }
+.fox.interact-happy .fox-figure,
+.fox.interact-happy .fox-tail-motion,
+.fox.interact-happy .fox-head-motion { animation: happy-wiggle 150ms ease-in-out 7 alternate; }
+
+.fox.is-resting .fox-motion { animation: lie-down 720ms cubic-bezier(.22,.75,.24,1) forwards; }
+.fox.is-resting .front-leg,
+.fox.is-resting .far-front-leg { animation: none; transform: rotate(68deg) translate(12px, 8px); }
+.fox.is-resting .hind-leg,
+.fox.is-resting .far-hind-leg { animation: none; transform: rotate(-62deg) translate(-11px, 8px); }
+.fox.is-resting .fox-shadow { animation: none; transform: scaleX(1.18); opacity: .2; }
+.fox[data-facing="right"].is-resting .fox-head { transform: rotate(90deg); }
+/* The parent is mirrored while facing left, so the same local rotation appears counterclockwise on screen. */
+.fox[data-facing="left"].is-resting .fox-head { transform: rotate(90deg); }
+.fox[data-facing="right"].is-resting .fox-tail { transform: translateX(10px) rotate(-120deg); }
+/* Mirroring reverses this local rotation, so it appears clockwise while facing left. */
+.fox[data-facing="left"].is-resting .fox-tail { transform: translateX(10px) rotate(-120deg); }
+.fox.is-sleeping .fox-motion { animation: sleep-breathe 2.8s ease-in-out infinite; }
+.fox.is-sleeping .eye { animation: none; transform: scaleY(.08); }
+.fox.is-sleeping .eye-glint { opacity: 0; }
+.fox.is-sleeping .near-ear { animation: sleep-ear 3.6s ease-in-out infinite; }
+.fox.is-waking .fox-motion { animation: wake-up 760ms cubic-bezier(.22,.72,.2,1); }
+
+.fox:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 5% 2% 1%;
+  border: 3px solid Highlight;
+  border-radius: 50%;
+}
+
+@keyframes breathe { 0%,100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-1px) scaleY(1.018); } }
+@keyframes blink { 0%,45%,48%,100% { transform: scaleY(1); } 46.5% { transform: scaleY(.08); } }
+@keyframes run-body { from { transform: translateY(1px) rotate(-1deg) scaleX(.985) scaleY(1.015); } to { transform: translateY(-6px) rotate(1deg) scaleX(1.025) scaleY(.975); } }
+@keyframes front-stride { 0%,100% { transform: rotate(27deg) translateY(-2px); } 50% { transform: rotate(-31deg) translateY(2px); } }
+@keyframes hind-stride { 0%,100% { transform: rotate(-33deg) translateY(3px); } 50% { transform: rotate(29deg) translateY(-2px); } }
+@keyframes ear-run { from { transform: rotate(-3deg); } to { transform: rotate(7deg); } }
+@keyframes run-shadow { from { transform: scaleX(.88); opacity: .11; } to { transform: scaleX(1.04); opacity: .19; } }
+@keyframes turn-step { 0%,100% { transform: translateY(0) scale(1); } 42% { transform: translateY(-9px) scaleX(.96) scaleY(1.04); } 62% { transform: translateY(-7px) scaleX(.96) scaleY(1.04); } }
+@keyframes turn-shadow { 0%,100% { transform: scaleX(1); opacity: .17; } 50% { transform: scaleX(.65); opacity: .1; } }
+@keyframes curious-tilt { 0%,100% { transform: rotate(0) translateY(0); } 25%,68% { transform: rotate(9deg) translateY(2px); } 44% { transform: rotate(5deg) translateY(1px); } }
+@keyframes scratch-react { 0%,100% { transform: rotate(0); } 18%,85% { transform: rotate(-5deg) translateY(3px); } }
+@keyframes paw-scratch { from { transform: rotate(-24deg) translate(0,0); } to { transform: rotate(27deg) translate(15px,-22px); } }
+@keyframes pounce { 0%,100% { transform: translate(0,0) rotate(0); } 18% { transform: translate(-8px,8px) rotate(-4deg) scaleX(1.06) scaleY(.92); } 48% { transform: translate(19px,-62px) rotate(6deg) scaleX(1.03) scaleY(1.04); } 73% { transform: translate(7px,-8px) rotate(-2deg) scaleX(1.08) scaleY(.9); } }
+@keyframes happy-bow { 0%,100% { transform: rotate(0) translateY(0); } 28%,72% { transform: rotate(6deg) translateY(9px) scaleY(.94); } }
+@keyframes happy-wiggle { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+@keyframes lie-down { from { transform: translateY(0) rotate(0); } to { transform: translateY(14px) rotate(1deg); } }
+@keyframes sleep-breathe { 0%,100% { transform: translateY(14px) rotate(1deg); } 50% { transform: translateY(16px) rotate(1deg); } }
+@keyframes sleep-ear { 0%,88%,100% { transform: rotate(0); } 92% { transform: rotate(8deg); } 96% { transform: rotate(-3deg); } }
+@keyframes wake-up { 0% { transform: translateY(14px) rotate(1deg); } 48% { transform: translateY(-10px) scaleX(.96) scaleY(1.08) rotate(-2deg); } 72% { transform: translateY(3px) scaleX(1.03) scaleY(.97); } 100% { transform: translateY(0) scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fox-turn { transition-duration: 750ms; }
+  .fox-figure, .fox-tail-motion, .fox-head-motion, .eye { animation-duration: 7s; }
+  .fox.is-running .fox-figure,
+  .fox.is-running .fox-tail-motion,
+  .fox.is-running .fox-head-motion,
+  .fox.is-running .near-ear,
+  .fox.is-running .far-ear,
+  .fox.is-running .fox-shadow { animation: none; }
+  .fox.is-running .front-leg,
+  .fox.is-running .hind-leg,
+  .fox.is-running .far-front-leg,
+  .fox.is-running .far-hind-leg { animation-duration: 850ms; }
+  .fox.is-sleeping .fox-motion { animation-duration: 5s; }
+}
