@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "0.4.21",
+  "version": "0.4.22",
   "description": "__MSG_extensionDescription__",
   "default_locale": "zh_CN",
   "icons": {
@@ -14,6 +14,11 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "fox-new-tab@shelus2021.github",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      },
       "strict_min_version": "109.0"
     }
   }
